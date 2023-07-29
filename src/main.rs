@@ -14,4 +14,13 @@ async fn main() {
 
     let result = client.get_me().await;
     println!("{:#?}", result);
+
+    let result = client.get_current_time_entry().await;
+    println!("{:#?}", result);
+
+    // Get all projects
+    let projects_result = client
+        .get_projects(endpoints::get_projects::RequestBody::default())
+        .await;
+    println!("{:#?}", projects_result);
 }

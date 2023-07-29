@@ -17,13 +17,13 @@ pub mod get_me {
         at: DateTime<Utc>,
         beginning_of_week: DayOfWeek,
         clients: Option<Vec<models::Client>>,
-        country_id: Option<i32>,
+        country_id: Option<i64>,
         created_at: DateTime<Utc>,
-        default_workspace_id: Option<i32>,
+        default_workspace_id: Option<i64>,
         email: String,
         fullname: String,
         has_password: bool,
-        id: i32,
+        id: i64,
         image_url: String,
         intercom_hash: Option<String>,
         oauth_providers: Option<Vec<String>>,
@@ -49,9 +49,9 @@ pub mod put_me {
     #[derive(Debug, Serialize, Deserialize)]
     pub struct RequestBody {
         beginning_of_week: Option<DayOfWeek>,
-        country_id: Option<i32>,
+        country_id: Option<i64>,
         current_password: Option<String>,
-        default_workspace_id: Option<i32>,
+        default_workspace_id: Option<i64>,
         email: Option<String>,
         fullname: Option<String>,
         password: Option<String>,
@@ -63,13 +63,13 @@ pub mod put_me {
         api_token: Option<String>,
         at: DateTime<Utc>,
         beginning_of_week: DayOfWeek,
-        country_id: i32,
+        country_id: i64,
         created_at: DateTime<Utc>,
-        default_workspace_id: i32,
+        default_workspace_id: i64,
         email: String,
         fullname: String,
         has_password: bool,
-        id: i32,
+        id: i64,
         image_url: String,
         openid_email: String,
         openid_enabled: bool,
@@ -112,7 +112,7 @@ pub mod get_features {
     #[derive(Debug, Serialize, Deserialize)]
     pub struct ResponseBody {
         features: Vec<models::Feature>,
-        workspace_id: i32,
+        workspace_id: i64,
     }
 }
 
@@ -155,14 +155,14 @@ pub mod get_projects {
     pub const BASE_URL: &str = "https://api.track.toggl.com/api/v9/me/projects";
 
     #[serde_as]
-    #[derive(Debug, Serialize, Deserialize)]
+    #[derive(Debug, Serialize, Deserialize, Default)]
     pub struct RequestBody {
         /// Include archived projects.
-        include_archived: Option<bool>,
+        pub include_archived: Option<bool>,
 
         /// Retrieve projects modified since this date using UNIX timestamp, including deleted ones.
         #[serde_as(as = "Option<TimestampSeconds<i64>>")]
-        since: Option<DateTime<Utc>>,
+        pub since: Option<DateTime<Utc>>,
     }
 
     #[derive(Debug, Serialize, Deserialize)]

@@ -11,7 +11,7 @@ pub struct Client {
     pub at: DateTime<Utc>,
 
     /// Client ID
-    pub id: i32,
+    pub id: i64,
 
     /// Name of the client
     pub name: String,
@@ -20,44 +20,44 @@ pub struct Client {
     pub server_deleted_at: Option<DateTime<Utc>>,
 
     /// Workspace ID
-    pub wid: i32,
+    pub wid: i64,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Project {
     pub active: bool,
-    pub actual_hours: Option<i32>,
+    pub actual_hours: Option<i64>,
     pub at: DateTime<Utc>,
     pub auto_estimates: Option<bool>,
     pub billable: Option<bool>,
-    pub cid: i32,
-    pub client_id: Option<i32>,
+    pub cid: Option<i64>,
+    pub client_id: Option<i64>,
     pub color: String,
     pub created_at: DateTime<Utc>,
     pub currency: Option<String>,
-    pub current_period: RecurringPeriod,
-    pub end_date: DateTime<Utc>,
-    pub estimated_hours: Option<i32>,
-    pub first_time_entry: DateTime<Utc>,
-    pub fixed_fee: f32,
-    pub id: i32,
+    pub current_period: Option<RecurringPeriod>,
+    pub end_date: Option<DateTime<Utc>>,
+    pub estimated_hours: Option<i64>,
+    pub first_time_entry: Option<DateTime<Utc>>,
+    pub fixed_fee: Option<f32>,
+    pub id: i64,
     pub is_private: bool,
     pub name: String,
-    pub rate: f32,
+    pub rate: Option<f32>,
     pub rate_last_updated: Option<DateTime<Utc>>,
     pub recurring: bool,
-    pub recurring_parameters: Vec<RecurringProjectParameters>,
+    pub recurring_parameters: Option<Vec<RecurringProjectParameters>>,
     pub server_deleted_at: Option<DateTime<Utc>>,
-    pub start_date: DateTime<Utc>,
+    pub start_date: Option<DateTime<Utc>>,
     pub template: Option<bool>,
-    pub wid: i32,
-    pub workspace_id: i32,
+    pub wid: i64,
+    pub workspace_id: i64,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct RecurringProjectParameters {
-    pub custom_period: Option<i32>,
-    pub estimated_seconds: i32,
+    pub custom_period: Option<i64>,
+    pub estimated_seconds: i64,
     pub parameter_end_date: Option<DateTime<Utc>>,
     pub parameter_start_date: DateTime<Utc>,
     pub period: RecurringPeriod,
@@ -79,9 +79,9 @@ pub struct Task {
 
     #[serde_as(as = "Option<DurationSeconds<i64>>")]
     pub estimated_seconds: Option<Duration>,
-    pub id: i32,
+    pub id: i64,
     pub name: String,
-    pub project_id: i32,
+    pub project_id: i64,
     pub recurring: bool,
     pub server_deleted_at: Option<DateTime<Utc>>,
 
@@ -89,8 +89,8 @@ pub struct Task {
     #[serde(rename = "tracked_seconds")]
     #[serde_as(as = "DurationMilliSeconds<i64>")]
     pub tracked_time: Duration,
-    pub user_id: Option<i32>,
-    pub workspace_id: i32,
+    pub user_id: Option<i64>,
+    pub workspace_id: i64,
 }
 
 #[serde_as]
@@ -113,13 +113,13 @@ pub struct TimeEntry {
     pub duronly: bool,
 
     /// Time Entry ID
-    pub id: i32,
+    pub id: i64,
 
     /// Project ID, legacy field
-    pub pid: i32,
+    pub pid: Option<i64>,
 
     /// Project ID. Can be null if project was not provided or project was later deleted
-    pub project_id: Option<i32>,
+    pub project_id: Option<i64>,
 
     /// When was deleted, null if not deleted
     pub server_deleted_at: Option<DateTime<Utc>>,
@@ -131,28 +131,28 @@ pub struct TimeEntry {
     pub stop: Option<DateTime<Utc>>,
 
     /// Tag IDs, null if tags were not provided or were later deleted
-    pub tag_ids: Vec<i32>,
+    pub tag_ids: Vec<i64>,
 
     /// Tag names, null if tags were not provided or were later deleted
     pub tags: Vec<String>,
 
     /// Task ID. Can be null if task was not provided or project was later deleted
-    pub task_id: Option<i32>,
+    pub task_id: Option<i64>,
 
     /// Task ID, legacy field
-    pub tid: i32,
+    pub tid: Option<i64>,
 
     /// Time Entry creator ID, legacy field
-    pub uid: i32,
+    pub uid: Option<i64>,
 
     /// Time Entry creator ID
-    pub user_id: i32,
+    pub user_id: i64,
 
     /// Workspace ID, legacy field
-    pub wid: i32,
+    pub wid: Option<i64>,
 
     /// Workspace ID
-    pub workspace_id: i32,
+    pub workspace_id: i64,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -164,13 +164,13 @@ pub struct Tag {
     pub deleted_at: Option<DateTime<Utc>>,
 
     /// Tag ID
-    pub id: i32,
+    pub id: i64,
 
     /// Tag name
     pub name: String,
 
     /// Workspace ID
-    pub workspace_id: i32,
+    pub workspace_id: i64,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -184,19 +184,19 @@ pub struct Workspace {
     pub default_hourly_rate: f64,
     pub ical_enabled: bool,
     pub ical_url: String,
-    pub id: i32,
+    pub id: i64,
     pub logo_url: String,
     pub name: String,
     pub only_admins_may_create_projects: bool,
     pub only_admins_may_create_tags: bool,
     pub only_admins_see_billable_rates: bool,
     pub only_admins_see_team_dashboard: bool,
-    pub organization_id: i32,
+    pub organization_id: i64,
     pub premium: bool,
-    pub profile: i32,
+    pub profile: i64,
     pub projects_billable_by_default: bool,
-    pub rounding: i32,
-    pub rounding_minutes: i32,
+    pub rounding: i64,
+    pub rounding_minutes: i64,
     pub server_deleted_at: Option<DateTime<Utc>>,
     pub subscription: Option<Subscription>,
     pub suspended_at: Option<DateTime<Utc>>,
@@ -212,7 +212,7 @@ pub struct CsvUpload {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Feature {
     pub enabled: bool,
-    pub feature_id: i32,
+    pub feature_id: i64,
     pub name: String,
 }
 
@@ -228,7 +228,7 @@ pub struct Organization {
     pub created_at: DateTime<Utc>,
 
     /// Organization ID
-    pub id: i32,
+    pub id: i64,
 
     pub is_chargify: bool,
 
@@ -238,7 +238,7 @@ pub struct Organization {
     pub is_unified: bool,
 
     /// Maximum number of workspaces allowed for the organization
-    pub max_workspaces: i32,
+    pub max_workspaces: i64,
 
     /// Organization Name
     pub name: String,
@@ -250,7 +250,7 @@ pub struct Organization {
     pub payment_methods: String,
 
     /// Organization plan ID
-    pub pricing_plan_id: i32,
+    pub pricing_plan_id: i64,
 
     /// Organization's delete date
     pub server_deleted_at: Option<DateTime<Utc>>,
@@ -261,13 +261,13 @@ pub struct Organization {
     pub trial_info: TrialInfo,
 
     /// Number of organization users
-    pub user_count: i32,
+    pub user_count: i64,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TrialInfo {
     /// What was the previous plan before the trial
-    pub last_pricing_plan_id: Option<i32>,
+    pub last_pricing_plan_id: Option<i64>,
 
     /// When the trial payment is due
     pub next_payment_date: Option<DateTime<Utc>>,
@@ -288,22 +288,22 @@ pub struct TrackReminder {
     pub created_at: DateTime<Utc>,
 
     /// Frequency of the reminder in days, should be either 1 or 7
-    pub frequency: i32,
+    pub frequency: i64,
 
     /// Groups IDs to send the reminder to
-    pub group_ids: Vec<i32>,
+    pub group_ids: Vec<i64>,
 
     /// Reminder ID
-    pub reminder_id: i32,
+    pub reminder_id: i64,
 
     /// Threshold is the number of hours after which the reminder will be sent
-    pub threshold: i32,
+    pub threshold: i64,
 
     /// User IDs to send the reminder to
-    pub user_ids: Vec<i32>,
+    pub user_ids: Vec<i64>,
 
     /// Workspace ID
-    pub workspace_id: i32,
+    pub workspace_id: i64,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -324,7 +324,7 @@ pub struct User {
     pub groups: Vec<Group>,
 
     /// User ID
-    pub id: i32,
+    pub id: i64,
 
     /// Whether the user is inactive
     pub inactive: bool,
@@ -342,7 +342,7 @@ pub struct User {
     pub owner: bool,
 
     /// User ID
-    pub user_id: i32,
+    pub user_id: i64,
 
     /// User's workspaces
     pub workspaces: Vec<Workspace>,
@@ -400,8 +400,8 @@ pub struct TeConstraints {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Group {
     pub at: DateTime<Utc>,
-    pub group_id: i32,
+    pub group_id: i64,
     pub name: String,
     pub users: Vec<User>,
-    pub workspaces: Vec<i32>,
+    pub workspaces: Vec<i64>,
 }
