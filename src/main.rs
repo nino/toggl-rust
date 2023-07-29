@@ -1,10 +1,7 @@
 mod client;
 mod day_of_week;
+mod endpoints;
 mod models;
-mod endpoints {
-    pub mod me;
-    pub mod time_entries;
-}
 use client::{Auth, Client};
 
 #[tokio::main]

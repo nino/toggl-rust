@@ -1,5 +1,5 @@
-use thiserror::Error;
 use crate::endpoints;
+use thiserror::Error;
 
 #[derive(Debug, Error)]
 pub enum Error {
@@ -25,14 +25,17 @@ impl Client {
         }
     }
 
-    pub async fn get_me(&self) -> Result<endpoints::me::get_me::ResponseBody, Error> {
-        let url = endpoints::me::get_me::BASE_URL;
+    pub async fn get_me(&self) -> Result<endpoints::get_me::ResponseBody, Error> {
+        let url = endpoints::get_me::BASE_URL;
         println!("Requesting me, url: {}", url);
         let response = self
             .reqwest_client
             .get(url)
             .basic_auth(&self.auth.user, Some(&self.auth.password))
-            .send().await?.json().await?;
+            .send()
+            .await?
+            .json()
+            .await?;
         Ok(response)
     }
 }
